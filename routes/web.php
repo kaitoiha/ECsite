@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServiceContainerTest']);
+Route::get('/serviceprovidertest', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
 require __DIR__.'/auth.php';
