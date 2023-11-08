@@ -3,6 +3,13 @@
 $ make up
 ```
 
+# vite 起動
+```
+$ npm ci
+$ npm run dev
+```
+
+
 ## アクセス
 http://localhost
 ## phpMyAdmin
