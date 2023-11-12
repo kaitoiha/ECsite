@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Owner; // Eloquent エロクアント
 use Illuminate\Support\Facades\DB; // QueryBuilder クエリビルダー
 use Carbon\Carbon;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 
 class OwnersController extends Controller
 {
@@ -19,20 +21,24 @@ class OwnersController extends Controller
      */
     public function index()
     {
-        $date_now = Carbon::now();
-        $date_parse = Carbon::parse(now());
+        // $date_now = Carbon::now();
+        // $date_parse = Carbon::parse(now());
         // echo $date_now;
         // echo $date_parse;
 
-        $e_all = Owner::all();
-        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        // $e_all = Owner::all();
+        // $q_get = DB::table('owners')->select('name', 'created_at')->get();
         // $q_first = DB::table('owners')->select('name')->first();
 
         // $c_test = collect([
         //     'name' => 'テスト'
         // ]);
         // dd($e_all, $q_get, $q_first, $c_test);
-        return view('admin.owners.index', compact('e_all', 'q_get'));
+        $owners = Owner::select('name', 'email', 'created_at')->get();
+
+        return view('admin.owners.index',
+            compact('owners')
+        );
     }
 
     /**
@@ -40,7 +46,7 @@ class OwnersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.owners.create');
     }
 
     /**
@@ -48,7 +54,21 @@ class OwnersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . Owner::class],
+            'password' => ['required', 'confirmed', 'min:8', Rules\Password::defaults()],
+        ]);
+
+        Owner::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()
+        ->route('admin.owners.index')
+        ->with('message', 'オーナー登録を実施しました。');
     }
 
     /**
