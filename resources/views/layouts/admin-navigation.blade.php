@@ -19,7 +19,7 @@
                         オーナー管理
                     </x-nav-link>
                     <x-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.expired-owners.index')">
-                        期限切れオーナー管理
+                        期限切れオーナー一覧
                     </x-nav-link>
                 </div>
             </div>
@@ -75,6 +75,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="('admin.owners.index')" :active="request()->routeIs('admin.owners.index')">
+                オーナー管理
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="('admin.expired-owners.index')" :active="request()->routeIs('admin.expired-owners.index')">
+                期限切れオーナー一覧
             </x-responsive-nav-link>
         </div>
 
