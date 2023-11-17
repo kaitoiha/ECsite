@@ -48,10 +48,10 @@ class ShopController extends Controller
 
     public function update(Request $request, $id)
     {
-        $imageFile = $request->image; //一時保存 if(!is_null($imageFile) && $imageFile->isValid() ){
-        // if (!is_null($imageFile) && $imageFile->isValid()) {
-            Storage::putFile('public/shops', $imageFile);
-        // }
+        $imageFile = $request->image;
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+            Storage::put('public/shops', $imageFile);
+        }
 
         return redirect()->route('owner.shops.index');
     }
