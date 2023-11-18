@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Storage;
 Class ImageService
 {
     public static function upload($imageFile, $folderName) {
-        Storage::put('public/'.$folderName , $imageFile);
+        $fileNameToStore = Storage::put('public/'.$folderName , $imageFile);
+
+        $filename = pathinfo($fileNameToStore, PATHINFO_BASENAME);
+
+        return $filename;
     }
 }
