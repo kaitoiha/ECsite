@@ -34,3 +34,6 @@ storageフォルダにリンク後、
 storage/app/public/productsフォルダ内に
 保存すると表示されます。
 (productsフォルダがない場合作成してください。)
+```
+cp public/images/* storage/app/public/products/
+```
