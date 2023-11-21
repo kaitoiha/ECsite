@@ -12,6 +12,7 @@
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     <x-input-error :messages="$errors->get('mines')" class="mt-2" />
                     <x-input-error :messages="$errors->get('max')" class="mt-2" />
+                    <x-flash-message status="sessin(status)" />
                     <form method="post" action="{{ route('owner.products.update', ['product' => $product->id]) }}">
                         @csrf
                         @method('put')
