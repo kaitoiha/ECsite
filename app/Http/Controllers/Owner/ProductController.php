@@ -14,6 +14,7 @@ use App\Models\PrimaryCategory;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -75,26 +76,8 @@ class ProductController extends Controller
         return view('owner.products.create', compact('shops', 'images', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'information' => ['required', 'string', 'max:1000'],
-            'price' => ['required', 'integer'],
-            'sort_order' => ['nullable', 'integer'],
-            'quantity' => ['required', 'integer'],
-            'shop_id' => ['required', 'exists:shops,id'],
-            'category' => ['required', 'exists:secondary_categories,id'],
-            'image1' => ['nullable', 'exists:images,id'],
-            'image2' => ['nullable', 'exists:images,id'],
-            'image3' => ['nullable', 'exists:images,id'],
-            'image4' => ['nullable', 'exists:images,id'],
-            'is_selling' => ['required'],
-        ]);
-
         try {
             DB::transaction(function () use ($request) {
                 $product = Product::create([
@@ -151,12 +134,11 @@ class ProductController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
-        //
+        $request->validate([
+            'current_quantity' => 'required|integer',
+        ]);
     }
 
     /**

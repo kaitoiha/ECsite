@@ -14,6 +14,7 @@
                     <x-input-error :messages="$errors->get('max')" class="mt-2" />
                     <form method="post" action="{{ route('owner.products.update', ['product' => $product->id]) }}">
                         @csrf
+                        @method('put')
                         <div class="-m-2">
                             <div class="p-2 w-1/2 mx-auto">
                                 <div class="relative">
