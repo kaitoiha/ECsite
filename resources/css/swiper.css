@@ -1,0 +1,17 @@
+.swiper {
+    height: 300px;
+}
+
+.swiper-slide img {
+    margin: auto;
+    width: 30rem;
+    height: 20rem;
+    object-fit: cover;
+}
+
+/* 画面サイズがSP以下の場合のスタイル */
+@media (max-width: 768px) {
+    .swiper-scrollbar {
+        display: none;
+    }
+}
