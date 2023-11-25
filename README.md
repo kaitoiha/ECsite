@@ -43,6 +43,41 @@ composer require stripe/stripe-php
 ```
 
 ## 開発手順
+下記でgitからclone
+```
+git clone https://github.com/kaitoiha/ecsite.git
+```
+
+# インストール手順
+```
+cd ecsite
+composer install
+npm install
+npm run dev
+```
+.env.exampleをコピーして.envファイルを作成
+```
+cp .env.example .env
+```
+
+# .envファイル下記項目を埋める
+DB_CONNECTION
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+
+STRIPE_PUBLIC_KEY=""
+STRIPE_SECRET_KEY=""
+
+# dockerを起動した後、下記コマンドを実行
+```
+make up
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate:refresh --seed
+```
+
 画像のダミーデータは
 public/imagesフォルダ内に
 sample1.jpg 〜 sample6.jpgとして
