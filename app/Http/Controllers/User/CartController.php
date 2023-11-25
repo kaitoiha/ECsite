@@ -73,11 +73,24 @@ class CartController extends Controller
             if($product->pivot->quantity > $quantity ){
                 return redirect()->route('user.cart.index');
             } else {
+                // $line_item = [
+                //     'name' => $product->name,
+                //     'description' => $product->information,
+                //     'amount' => $product->price,
+                //     'currency' => 'jpy',
+                //     'quantity' => $product->pivot->quantity,
+                // ];
+                // array_push($line_items, $line_item);
                 $line_item = [
-                    'name' => $product->name,
-                    'description' => $product->information,
-                    'amount' => $product->price,
-                    'currency' => 'jpy',
+                    'price_data' => [
+                        'unit_amount' => $product->price,
+                        'currency' => 'JPY',
+
+                        'product_data' => [
+                            'name' => $product->name,
+                            'description' => $product->information,
+                        ],
+                    ],
                     'quantity' => $product->pivot->quantity,
                 ];
                 array_push($line_items, $line_item);
@@ -92,8 +105,6 @@ class CartController extends Controller
                 'quantity' => $product->pivot->quantity * -1
             ]);
         }
-
-        dd('test');
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 

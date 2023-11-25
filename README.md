@@ -28,6 +28,20 @@ https://github.com/stripe/stripe-php
 composer require stripe/stripe-php 
 ```
 
+## Stripeクレジットテスト
+支払い成功
+```
+4242 4242 4242 4242
+```
+支払いには認証が必要です
+```
+4000 0025 0000 3155
+```
+支払いが拒否されました
+```
+4000 0000 0000 9995
+```
+
 ## 開発手順
 画像のダミーデータは
 public/imagesフォルダ内に
