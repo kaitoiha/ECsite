@@ -37,3 +37,11 @@ storage/app/public/productsフォルダ内に
 ```
 cp public/images/* storage/app/public/products/
 ```
+
+ショップの画像も表示する際、
+storage/app/public/shopsフォルダを作成し
+画像を保存してください。
+```
+cp public/images/sample2.jpg storage/app/public/shops/
+cp public/images/sample3.jpg storage/app/public/shops/
+```
