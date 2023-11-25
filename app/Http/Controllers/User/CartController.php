@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Stock;
+use App\Constants\Common;
 
 class CartController extends Controller
 {
@@ -63,16 +65,36 @@ class CartController extends Controller
         $line_items = [];
 
         foreach ($products as $product) {
-            $line_item = [
-                'name' => $product->name,
-                'description' => $product->information,
-                'amount' => $product->price,
-                'currency' => 'jpy',
-                'quantity' => $product->pivot->quantity,
-            ];
-            array_push($line_items, $line_item);
+            $quantity = '';
+            $quantity = Stock::where('product_id', $product->id)
+            ->sum('quantity');
+
+            // 在庫チェック
+            if($product->pivot->quantity > $quantity ){
+                return redirect()->route('user.cart.index');
+            } else {
+                $line_item = [
+                    'name' => $product->name,
+                    'description' => $product->information,
+                    'amount' => $product->price,
+                    'currency' => 'jpy',
+                    'quantity' => $product->pivot->quantity,
+                ];
+                array_push($line_items, $line_item);
+            }
         }
-        // dd($line_items);
+
+        // 在庫から売れた数量を減らす
+        foreach ($products as $product) {
+            Stock::create([
+                'product_id' => $product->id,
+                'type' => Common::PRODUCT_LIST['reduce'],
+                'quantity' => $product->pivot->quantity * -1
+            ]);
+        }
+
+        dd('test');
+
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
         $session = \Stripe\Checkout\Session::create([
