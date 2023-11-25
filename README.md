@@ -21,6 +21,12 @@ https://docs.google.com/spreadsheets/d/1YIDqTKH2v2-n97kb2GNhWrcMGnJD84JMqTuzD_po
 ## ER図
 https://drive.google.com/file/d/18sEk5LC-jJum-NU9JKNZibGRVX81aWE1/view?pli=1
 
+## Stripe
+Stripeが発行しているライブラリ 
+https://github.com/stripe/stripe-php
+```
+composer require stripe/stripe-php 
+```
 
 ## 開発手順
 画像のダミーデータは
