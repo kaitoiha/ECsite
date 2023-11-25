@@ -20,7 +20,7 @@ class CartController extends Controller
             $totalPrice += $product->price * $product->pivot->quantity;
         }
 
-        return view('user.cart.index',
+        return view('user.cart',
             compact('products', 'totalPrice'));
     }
 
