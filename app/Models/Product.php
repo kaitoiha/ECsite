@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Constants\Common;
 
 class Product extends Model
 {
@@ -99,4 +100,47 @@ class Product extends Model
             'image1.filename as filename'
         );
     }
+
+    public function scopeSortOrder($query, $sortOrder){
+        if($sortOrder === null || $sortOrder === Common::SORT_ORDER['recommend']){
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['higherPrice']){
+            return $query->orderBy('price', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['lowerPrice']){
+            return $query->orderBy('price', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['later']){
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['older']){
+            return $query->orderBy('products.created_at', 'asc');
+        }
+    }
+
+    public function scopeSelectCategory($query, $categoryId)
+    {
+        if ($categoryId !== '0') {
+            return $query->where('secondary_category_id', $categoryId);
+        } else {
+            return;
+        }
+    }
+
+    public function scopeSearchKeyword($query, $keyword)
+    {
+        if(!is_null($keyword)) {
+            $spaceConvert = mb_convert_kana($keyword,'s'); //全角スペースを半角に
+            $keywords = preg_split('/[\s]+/', $spaceConvert,-1,PREG_SPLIT_NO_EMPTY); //空白で区切る
+            //単語をループで回す
+            foreach($keywords as $word) {
+                $query->where('products.name','like','%'.$word.'%');
+            }
+            return $query;
+        } else {
+            return;
+        }
+    }
+
 }
