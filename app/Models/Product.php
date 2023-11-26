@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Constants\Common;
 
 class Product extends Model
 {
@@ -98,5 +99,23 @@ class Product extends Model
             'secondary_categories.name as category',
             'image1.filename as filename'
         );
+    }
+
+    public function scopeSortOrder($query, $sortOrder){
+        if($sortOrder === null || $sortOrder === Common::SORT_ORDER['recommend']){
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['higherPrice']){
+            return $query->orderBy('price', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['lowerPrice']){
+            return $query->orderBy('price', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['later']){
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['older']){
+            return $query->orderBy('products.created_at', 'asc');
+        }
     }
 }

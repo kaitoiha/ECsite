@@ -1,8 +1,56 @@
+@php
+    use App\Constants\Common;
+@endphp
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ホーム') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                商品一覧
+            </h2>
+            <div>
+                <form method="get" action="{{ route('user.items.index')}}">
+                    <div class="flex">
+                        <div>
+                            <span class="text-sm">表示順</span><br>
+                            <select id="sort" name="sort" class="mr-4">
+                                <option value="{{ Common::SORT_ORDER['recommend']}}"
+                                    @if($sort === Common::SORT_ORDER['recommend'] )
+                                        selected
+                                    @endif>
+                                    おすすめ順
+                                </option>
+                                <option value="{{ Common::SORT_ORDER['higherPrice']}}"
+                                    @if($sort === Common::SORT_ORDER['higherPrice'] )
+                                        selected
+                                    @endif>
+                                    料金の高い順
+                                </option>
+                                <option value="{{ Common::SORT_ORDER['lowerPrice']}}"
+                                    @if($sort === Common::SORT_ORDER['lowerPrice'] )
+                                        selected
+                                    @endif>
+                                    料金の安い順
+                                </option>
+                                <option value="{{ Common::SORT_ORDER['later']}}"
+                                    @if($sort === Common::SORT_ORDER['later'] )
+                                        selected
+                                    @endif>
+                                    新しい順
+                                </option>
+                                <option value="{{ Common::SORT_ORDER['older']}}"
+                                    @if($sort === Common::SORT_ORDER['older'] )
+                                        selected
+                                    @endif>
+                                    古い順
+                                </option>
+                            </select>
+                        </div>
+                        <div>表示件数</div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -31,4 +79,10 @@
             </div>
         </div>
     </div>
+    <script>
+        const select = document.getElementById('sort')
+        select.addEventListener('change', function(){
+            this.form.submit()
+        })
+    </script>
 </x-app-layout>
