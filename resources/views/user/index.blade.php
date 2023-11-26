@@ -3,67 +3,90 @@
 @endphp
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                商品一覧
-            </h2>
-            <div>
-                <form method="get" action="{{ route('user.items.index')}}">
-                    <div class="flex">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            商品一覧
+        </h2>
+        <form method="get" action="{{ route('user.items.index')}}">
+            <div class="lg:flex lg:justify-around">
+                <div class="lg:flex items-center">
+
+
+                    <select name="category" class="lg:mr-2">
+                        <option value="0" @if(\Request::get('category') === '0') selected @endif >全て</option>
+                        @foreach($categories as $category)
+                            <optgroup label="{{ $category->name }}">
+                            @foreach($category->secondary as $secondary)
+                                <option value="{{ $secondary->id}}" @if(\Request::get('category') == $secondary->id) selected @endif >
+                                    {{ $secondary->name }}
+                                </option>
+                            @endforeach
+                        @endforeach
+                    </select>
+
+
+                    <div class="flex space-x-2 items-center">
                         <div>
-                            <span class="text-sm">表示順</span><br>
-                            <select id="sort" name="sort" class="mr-4">
-                                <option value="{{ Common::SORT_ORDER['recommend']}}"
-                                    @if($sort === Common::SORT_ORDER['recommend'] )
-                                        selected
-                                    @endif>
-                                    おすすめ順
-                                </option>
-                                <option value="{{ Common::SORT_ORDER['higherPrice']}}"
-                                    @if($sort === Common::SORT_ORDER['higherPrice'] )
-                                        selected
-                                    @endif>
-                                    料金の高い順
-                                </option>
-                                <option value="{{ Common::SORT_ORDER['lowerPrice']}}"
-                                    @if($sort === Common::SORT_ORDER['lowerPrice'] )
-                                        selected
-                                    @endif>
-                                    料金の安い順
-                                </option>
-                                <option value="{{ Common::SORT_ORDER['later']}}"
-                                    @if($sort === Common::SORT_ORDER['later'] )
-                                        selected
-                                    @endif>
-                                    新しい順
-                                </option>
-                                <option value="{{ Common::SORT_ORDER['older']}}"
-                                    @if($sort === Common::SORT_ORDER['older'] )
-                                        selected
-                                    @endif>
-                                    古い順
-                                </option>
-                            </select>
+                            <input class="border border-gray-500 py-2" name="keyword" placeholder="キーワードを入力">
                         </div>
                         <div>
-                            <span class="text-sm">表示件数</span><br>
-                            <select id="pagination" name="pagination">
-                                <option value="20" @if($pagination === '20') selected @endif>
-                                    20件
-                                </option>
-                                <option value="50" @if($pagination === '50') selected @endif>
-                                    50件
-                                </option>
-                                <option value="100" @if($pagination === '100') selected @endif>
-                                    100件
-                                </option>
-                            </select>
+                            <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">検索する</button>
                         </div>
                     </div>
+                </div>
 
-                </form>
+                <div class="flex">
+                    <div>
+                        <span class="text-sm">表示順</span><br>
+                        <select id="sort" name="sort" class="mr-4">
+                            <option value="{{ Common::SORT_ORDER['recommend']}}"
+                                @if($sort === Common::SORT_ORDER['recommend'] )
+                                    selected
+                                @endif>
+                                おすすめ順
+                            </option>
+                            <option value="{{ Common::SORT_ORDER['higherPrice']}}"
+                                @if($sort === Common::SORT_ORDER['higherPrice'] )
+                                    selected
+                                @endif>
+                                料金の高い順
+                            </option>
+                            <option value="{{ Common::SORT_ORDER['lowerPrice']}}"
+                                @if($sort === Common::SORT_ORDER['lowerPrice'] )
+                                    selected
+                                @endif>
+                                料金の安い順
+                            </option>
+                            <option value="{{ Common::SORT_ORDER['later']}}"
+                                @if($sort === Common::SORT_ORDER['later'] )
+                                    selected
+                                @endif>
+                                新しい順
+                            </option>
+                            <option value="{{ Common::SORT_ORDER['older']}}"
+                                @if($sort === Common::SORT_ORDER['older'] )
+                                    selected
+                                @endif>
+                                古い順
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="text-sm">表示件数</span><br>
+                        <select id="pagination" name="pagination">
+                            <option value="20" @if($pagination === '20') selected @endif>
+                                20件
+                            </option>
+                            <option value="50" @if($pagination === '50') selected @endif>
+                                50件
+                            </option>
+                            <option value="100" @if($pagination === '100') selected @endif>
+                                100件
+                            </option>
+                        </select>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </x-slot>
 
     <div class="py-12">
@@ -90,7 +113,7 @@
                     </div>
                     {{ $products->appends([
                         'sort' => $sort,
-                        'pagination' => $pagination,
+                        'pagination' => \Request::get('pagination'),
                         ])->links() }}
                 </div>
             </div>
