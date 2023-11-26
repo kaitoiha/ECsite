@@ -30,11 +30,12 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $sort = $request->get('sort');
+        $pagination = $request->get('pagination');
         $products = Product::availableItems()
         ->sortOrder($request->sort)
-        ->get();
+        ->paginate($request->pagination ?? '20');
 
-        return view('user.index', compact('products', 'sort'));
+        return view('user.index', compact('products', 'sort', 'pagination'));
     }
 
     public function show($id)
