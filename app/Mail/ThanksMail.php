@@ -13,12 +13,13 @@ class ThanksMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $products;
+    public $user;
+
+    public function __construct($products, $user)
     {
-        //
+        $this->products = $products;
+        $this->user = $user;
     }
 
     /**
@@ -27,7 +28,7 @@ class ThanksMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Thanks Mail',
+            subject: 'ご購入ありがとうございます。',
         );
     }
 
@@ -37,7 +38,7 @@ class ThanksMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.thanks',
         );
     }
 
