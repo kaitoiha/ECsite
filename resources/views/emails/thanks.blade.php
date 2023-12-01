@@ -10,6 +10,7 @@
         <li>商品名： {{ $product['name'] }}</li>
         <li>商品金額： {{ number_format($product['price']) }}円</li>
         <li>商品数： {{ $product['quantity'] }}</li>
-        <li>合計金額： {{ number_format($product['price']) * $product['quantity'] }}円</li>
+        {{-- 下記表示させるとエラーになるので後日修正 --}}
+        {{-- <li>合計金額： {{ number_format($product['price']) * $product['quantity'] }}円</li> --}}
     </ul>
 @endforeach

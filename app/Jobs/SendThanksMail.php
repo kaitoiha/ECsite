@@ -30,9 +30,7 @@ class SendThanksMail implements ShouldQueue
      */
     public function handle(): void
     {
-        // Mail::to('test@example.com')
-        // ->send(new TestMail());
-        Mail::to()
+        Mail::to($this->user)
         ->send(new ThanksMail($this->products, $this->user));
     }
 }
