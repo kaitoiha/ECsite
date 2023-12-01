@@ -27,6 +27,7 @@ https://github.com/stripe/stripe-php
 ```
 composer require stripe/stripe-php 
 ```
+.envにapiパスを追加してください。
 
 ## Stripeクレジットテスト
 支払い成功
@@ -99,4 +100,14 @@ storage/app/public/shopsフォルダを作成し
 ```
 cp public/images/sample2.jpg storage/app/public/shops/
 cp public/images/sample3.jpg storage/app/public/shops/
+```
+
+# メールテスト
+メールテストとしてmailtrapを利用しています。
+必要な場合、.envにmailtrapの情報を追加してください。
+https://mailtrap.io/
+
+また、メール処理にはキューを使用しているため、下記コマンドの実行をしてください
+```
+./vendor/bin/sail artisan queue:work
 ```
