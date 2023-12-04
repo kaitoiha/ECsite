@@ -15,54 +15,73 @@ class CategorySeeder extends Seeder
     {
         DB::table('primary_categories')->insert([
             [
-                'name' => 'キッズファッション',
+                'name' => 'アガベ',
                 'sort_order' => 1,
             ],
             [
-                'name' => '出産祝い・ギフト',
+                'name' => '実生株',
                 'sort_order' => 2,
             ],
             [
-                'name' => 'ベビーカー',
+                'name' => '種',
                 'sort_order' => 3,
+            ],
+            [
+                'name' => '土',
+                'sort_order' => 4,
             ],
         ]);
 
         DB::table('secondary_categories')->insert([
             [
-                'name' => '靴',
+                'name' => 'オテロイ',
                 'sort_order' => 1,
                 'primary_category_id' => 1
             ],
             [
-                'name' => 'トップス',
+                'name' => 'ホリダ',
                 'sort_order' => 2,
                 'primary_category_id' => 1
             ],
             [
-                'name' => 'バック・ランドセル',
+                'name' => 'イシスメンシス',
                 'sort_order' => 3,
                 'primary_category_id' => 1
             ],
             [
-                'name' => 'ギフトセット',
+                'name' => 'オテロイ',
                 'sort_order' => 4,
                 'primary_category_id' => 2
             ],
             [
-                'name' => 'メモリアル・記念品',
+                'name' => 'ホリダ',
                 'sort_order' => 5,
                 'primary_category_id' => 2
             ],
             [
-                'name' => 'おむつケーキ',
+                'name' => 'イシスメンシス',
                 'sort_order' => 6,
                 'primary_category_id' => 2
             ],
             [
-                'name' => 'test',
+                'name' => 'オテロイ',
                 'sort_order' => 7,
                 'primary_category_id' => 3
+            ],
+            [
+                'name' => 'ホリダ',
+                'sort_order' => 8,
+                'primary_category_id' => 3
+            ],
+            [
+                'name' => 'イシスメンシス',
+                'sort_order' => 9,
+                'primary_category_id' => 3
+            ],
+            [
+                'name' => '鹿沼土',
+                'sort_order' => 10,
+                'primary_category_id' => 4
             ],
         ]);
     }
