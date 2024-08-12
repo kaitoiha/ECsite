@@ -1,3 +1,6 @@
+## アプリ紹介
+https://docs.google.com/spreadsheets/d/1HD38VbOISDMZW4e-aNoIJjRw4YZMF4iz0hrCV0uuS0c/edit?gid=0#gid=0
+
 ## 開発手順
 下記でgitからclone
 ```
