@@ -1,48 +1,3 @@
-# Laravel Sail起動
-```
-$ make up
-```
-
-# vite 起動
-```
-$ npm ci
-$ npm run dev
-```
-
-
-## アクセス
-http://localhost
-## phpMyAdmin
-http://localhost:8080/
-
-## 設計書
-https://docs.google.com/spreadsheets/d/1YIDqTKH2v2-n97kb2GNhWrcMGnJD84JMqTuzD_poMqo/edit?pli=1#gid=0
-
-## ER図
-https://drive.google.com/file/d/18sEk5LC-jJum-NU9JKNZibGRVX81aWE1/view?pli=1
-
-## Stripe
-Stripeが発行しているライブラリ 
-https://github.com/stripe/stripe-php
-```
-composer require stripe/stripe-php 
-```
-.envにapiパスを追加してください。
-
-## Stripeクレジットテスト
-支払い成功
-```
-4242 4242 4242 4242
-```
-支払いには認証が必要です
-```
-4000 0025 0000 3155
-```
-支払いが拒否されました
-```
-4000 0000 0000 9995
-```
-
 ## 開発手順
 下記でgitからclone
 ```
@@ -111,3 +66,44 @@ https://mailtrap.io/
 ```
 ./vendor/bin/sail artisan queue:work
 ```
+
+
+## アクセス
+### ユーザー画面(買う側)
+http://localhost
+### オーナー画面(売る側)
+http://localhost/owner
+### 管理者画面(管理者)
+http://localhost/admin
+
+## phpMyAdmin
+http://localhost:8080/
+
+## 設計書
+https://docs.google.com/spreadsheets/d/1YIDqTKH2v2-n97kb2GNhWrcMGnJD84JMqTuzD_poMqo/edit?pli=1#gid=0
+
+## ER図
+https://drive.google.com/file/d/18sEk5LC-jJum-NU9JKNZibGRVX81aWE1/view?pli=1
+
+## Stripe
+Stripeが発行しているライブラリ 
+https://github.com/stripe/stripe-php
+```
+composer require stripe/stripe-php 
+```
+.envにapiパスを追加してください。
+
+## Stripeクレジットテスト
+支払い成功
+```
+4242 4242 4242 4242
+```
+支払いには認証が必要です
+```
+4000 0025 0000 3155
+```
+支払いが拒否されました
+```
+4000 0000 0000 9995
+```
+
